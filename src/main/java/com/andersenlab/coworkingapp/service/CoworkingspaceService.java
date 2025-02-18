@@ -1,6 +1,8 @@
-package com.andersenlab.coworkingapp.coworkingspace;
+package com.andersenlab.coworkingapp.service;
 
 
+import com.andersenlab.coworkingapp.entity.Coworkingspace;
+import com.andersenlab.coworkingapp.repository.CoworkingspaceRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

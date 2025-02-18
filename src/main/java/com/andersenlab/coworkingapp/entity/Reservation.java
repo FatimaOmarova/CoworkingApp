@@ -1,8 +1,6 @@
-package com.andersenlab.coworkingapp.reservation;
+package com.andersenlab.coworkingapp.entity;
 
 
-import com.andersenlab.coworkingapp.coworkingspace.Coworkingspace;
-import com.andersenlab.coworkingapp.customer.Customer;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,10 +14,10 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="customer_id", referencedColumnName = "id")
-    private Customer customer;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id", referencedColumnName = "id")
+    private User user;
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="coworkingspace_id", referencedColumnName = "id")
     private Coworkingspace coworkingspace;
     private Date date;

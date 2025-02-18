@@ -1,9 +1,12 @@
-package com.andersenlab.coworkingapp.reservation;
+package com.andersenlab.coworkingapp.service;
 
-import com.andersenlab.coworkingapp.coworkingspace.Coworkingspace;
-import com.andersenlab.coworkingapp.coworkingspace.CoworkingspaceRepository;
-import com.andersenlab.coworkingapp.customer.Customer;
-import com.andersenlab.coworkingapp.customer.CustomerRepository;
+import com.andersenlab.coworkingapp.entity.Coworkingspace;
+import com.andersenlab.coworkingapp.entity.Reservation;
+import com.andersenlab.coworkingapp.repository.CoworkingspaceRepository;
+import com.andersenlab.coworkingapp.entity.User;
+import com.andersenlab.coworkingapp.repository.UserRepository;
+import com.andersenlab.coworkingapp.repository.ReservationRepository;
+import com.andersenlab.coworkingapp.dto.ReservationRequest;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,20 +17,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReservationService {
     private final ReservationRepository reservationRepository;
-    private final CustomerRepository customerRepository;
+    private final UserRepository userRepository;
     private final CoworkingspaceRepository coworkingspaceRepository;
 
     @Transactional
     public void saveReservation(ReservationRequest request){
-        Customer customer = customerRepository.findById(request.getCustomerId())
-                .orElseThrow(()-> new RuntimeException("Customer not found"));
+        User user = userRepository.findById(request.getUserId())
+                .orElseThrow(()-> new RuntimeException("User not found"));
         Coworkingspace coworkingspace = coworkingspaceRepository.findById(request.getCoworkingspaceId())
                 .orElseThrow(() -> new RuntimeException("Coworkingspace not found"));
         if(!coworkingspace.isAvailability()){
             throw new RuntimeException("Coworkingspace is not available");
         }
         Reservation reservation = new Reservation();
-        reservation.setCustomer(customer);
+        reservation.setUser(user);
         reservation.setCoworkingspace(coworkingspace);
         reservation.setDate(request.getDate());
         reservation.setStartTime(request.getStartTime());
@@ -43,5 +46,9 @@ public class ReservationService {
     }
     public List<Reservation> viewReservation(){
         return reservationRepository.findAll();
+    }
+
+    public List<Reservation> viewReservationByUser(Long userId) {
+        return reservationRepository.findByUserId(userId);
     }
 }

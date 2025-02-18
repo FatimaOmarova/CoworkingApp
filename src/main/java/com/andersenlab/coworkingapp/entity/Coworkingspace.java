@@ -1,4 +1,4 @@
-package com.andersenlab.coworkingapp.admin;
+package com.andersenlab.coworkingapp.entity;
 
 
 import jakarta.persistence.Entity;
@@ -9,11 +9,13 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Admin {
+public class Coworkingspace {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String username;
-    private String password;
+    private String type;
+    private int price;
+    private boolean availability;
+
 }
