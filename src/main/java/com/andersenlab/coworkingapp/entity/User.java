@@ -1,4 +1,4 @@
-package com.andersenlab.coworkingapp.customer;
+package com.andersenlab.coworkingapp.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,12 +8,12 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Customer {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String username;
     private String password;
-
+    private String role;
 }

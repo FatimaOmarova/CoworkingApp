@@ -1,5 +1,6 @@
-package com.andersenlab.coworkingapp.coworkingspace;
+package com.andersenlab.coworkingapp.repository;
 
+import com.andersenlab.coworkingapp.entity.Coworkingspace;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
